@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Panel</title>
+    <style> 
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        button { font-size: 1.2em; padding: 15px 30px; cursor: pointer; border-radius: 8px; border: none; background-color: #007bff; color: white; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <h1>แผงควบคุม</h1>
+    <p>กดปุ่มด้านล่างเพื่อเตรียมข้อความสำหรับส่ง</p>
+
+    
+    <button id="sendButton" disabled>กำลังเตรียมระบบ...</button>
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    
+    <script>
+        
+        liff.init({ liffId: '2007980698-QeM1EMWK' }) // 
+            .then(() => {
+                
+                document.getElementById('sendButton').disabled = false;
+                document.getElementById('sendButton').textContent = 'สร้างและส่งข้อความ';
+            })
+            .catch((err) => {
+                console.error(err);
+                alert('ไม่สามารถเชื่อมต่อกับระบบ LIFF ได้');
+            });
+
+        
+        document.getElementById('sendButton').addEventListener('click', () => {
+
+            
+const flexMessagePayload = {
+  "type": "flex",
+  "altText": "Image",
+  "contents": {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "paddingAll": "0px",
+      "contents": [
+        {
+          "type": "image",
+          "url": "https://nn.ngrok.app/killzone.php",
+          "size": "full",
+          "aspectRatio": "1:1",
+          "aspectMode": "cover"
+        }
+      ]
+    }
+  }
+};
+            
+            
+    liff.shareTargetPicker([flexMessagePayload]);
+});
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
